@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:lab5/ButtonModel.dart';
-import 'package:lab5/XylophoneButton.dart';
+import 'package:lab_5/ButtonModel.dart';
+import 'package:lab_5/XylophoneButton.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,16 +31,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: buttons
-              .map(
-                (button) => XylophoneButton(
-                  color: button.color,
-                  onPressed: () async {
-                    await player.play(AssetSource('${button.audioName}.wav'));
-                  },
-                ),
-              )
-              .toList(),
+          children:
+              buttons
+                  .map(
+                    (button) => XylophoneButton(
+                      color: button.color,
+                      onPressed: () async {
+                        await player.play(
+                          AssetSource('${button.audioName}.wav'),
+                        );
+                      },
+                    ),
+                  )
+                  .toList(),
         ),
       ),
     );
