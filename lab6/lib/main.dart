@@ -25,10 +25,12 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> iconsList = [];
 
   final List<Question> questionsList = [
-    Question('Môn Lập trình đa nền tảng học vào sáng thứ 5?', true),
+    Question('Môn Lập trình đa nền tảng học vào thứ 6?', true),
+    Question('Flutter là một framework của Google', true),
     Question('Môn Lập trình đa nền tảng gồm 3 tín chỉ?', false),
+    Question('Môn Lập trình đa nền tảng có 2 phần: lý thuyết và thực hành', true),
     Question('Giảng viên dạy Môn Lập trình đa nền tảng là thầy ThS Ngô Lê Quân', true),
-    Question('1 + 1 = 2 ?', true),
+    Question('1 + 1 = 3 ?', false),
   ];
 
   @override

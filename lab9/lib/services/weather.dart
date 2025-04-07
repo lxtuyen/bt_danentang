@@ -1,31 +1,35 @@
+import 'package:lab9/services/location.dart';
 import 'package:lab9/services/networking.dart';
 
-import '/services/location.dart';
 
-const apiKey = 'adc6586e5522e74210d90bbbf3a9a581';
-const weatherApiURL = 'http://api.weatherapi.com/v1/current.json';
+const apiKey = 'dbea4ea971dae66957a42a2a445760be';
 
 class WeatherModel {
-  Future<dynamic> getCityWeather(String inputCity) async {
-    NetworkHelper networkHelper =
-        NetworkHelper(url: '$weatherApiURL?key=$apiKey&q=$inputCity&aqi=yes');
-
-    dynamic weatherCityData = await networkHelper.getData();
-
-    return weatherCityData;
-  }
-
   Future<dynamic> getLocationWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
-    NetworkHelper networkHelper = NetworkHelper(
-        url:
-            '$weatherApiURL?key=$apiKey&q=${location.latitude},${location.longitude}&aqi=yes');
+    NetworkHelper connection = NetworkHelper(
+      url: 'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric'  );
 
-    dynamic weatherLocationData = await networkHelper.getData();
+    var weatherData = await connection.getData();
+    return weatherData;
+  }
 
-    return weatherLocationData;
+  Future<dynamic> getSearchWeather(String city) async {
+    Location location = Location();
+    await location.getCurrentLocation();
+
+    NetworkHelper searchLocation = NetworkHelper(
+      url: 'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&units=metric');
+
+    var weatherData = await searchLocation.getData();
+    return weatherData;
+  }
+
+  String getWeatherBackground(int condition) {
+    return 'images/blue_background.jpg'; //blue background
+    // }
   }
 
   String getWeatherIcon(int condition) {
@@ -46,7 +50,7 @@ class WeatherModel {
     }
   }
 
-  String getMessage(int temp) {
+   String getMessage(int temp) {
     if (temp > 25) {
       return 'It\'s 🍦 time';
     } else if (temp > 20) {
